@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@arcgis/webpack-plugin": "^4.18.0",
+    "@jsany/log-filesize-webpack-plugin": "^1.2.13",
     "@types/arcgis-js-api": "^4.18.0",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",

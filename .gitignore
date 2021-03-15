@@ -27,5 +27,8 @@ esri-loader-build/
 arcgis-core-build/
 arcgis-webpack-plugin-build/
 
+# ignore esri assets for @arcgis/core
+public/assets/esri/
+
 # webpack bundle analyzer report
 report.html

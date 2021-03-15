@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import MapView from './views/MapView.vue';
+import MapView from '@/views/MapView.vue';
 
 export default defineComponent({
   name: 'App',

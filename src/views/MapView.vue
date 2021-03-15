@@ -7,26 +7,61 @@
 <script lang="ts">
 /// <reference types="@types/arcgis-js-api" />
 import { defineComponent } from 'vue'
+import { loadModules } from 'esri-loader'
+
+interface MapViewData {
+  map?: __esri.Map;
+  view?: __esri.MapView;
+}
 
 export default defineComponent({
-  setup(){
 
-    // set api key (use .env.local file)
-    esriConfig.apiKey = process.env.VUE_APP_ARCGIS_ACCESS_TOKEN
+  async mounted(){
+    try {
 
-    // set map and view
-    const map: __esri.Map =new Map({
-      basemap: 'topo'
-    })
+      const [
+        Map,
+        MapView,
+        esriConfig
+      ] = await loadModules<[
+        __esri.MapConstructor,
+        __esri.MapViewConstructor,
+        __esri.config
+      ]>([
+        "esri/Map",
+        "esri/views/MapView",
+        "esri/config"
+      ])
+    
+      // set api key (use .env.local file)
+      esriConfig.apiKey = process.env.VUE_APP_ARCGIS_ACCESS_TOKEN
 
-    const view = new MapView({
-      map: this.map,
-      container: this.$refs.viewDiv,
-      center: [-94, 45],
-      zoom: 12
-    })
+      // set map and view
+      const map = new Map({
+        basemap: 'topo'
+      })
 
-  }
+      const view = new MapView({
+        map,
+        container: 'viewDiv',
+        center: [-94, 45],
+        zoom: 12
+      })
+      
+      view.when(()=> {
+        console.log('view loaded')
+      })
+
+    } catch(err){
+      console.warn(err)
+      console.error('failed load esri modules')
+    }
+
+  },
+
+  
+
+  
 })
 
 </script>

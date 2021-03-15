@@ -1,5 +1,7 @@
 <template>
-  <map-view />
+  <Suspense>
+    <map-view />
+  </Suspense>
 </template>
 
 <script lang="ts">

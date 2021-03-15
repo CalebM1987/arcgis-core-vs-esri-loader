@@ -12,4 +12,5 @@ loadCss()
 
 loadScript()
 
+// create vue app
 createApp(App).mount('#app')

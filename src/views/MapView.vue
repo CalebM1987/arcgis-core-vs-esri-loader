@@ -6,7 +6,7 @@
 
 <script lang="ts">
 /// <reference types="@types/arcgis-js-api" />
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import { loadModules } from 'esri-loader'
 
 interface MapViewData {
@@ -16,45 +16,58 @@ interface MapViewData {
 
 export default defineComponent({
 
-  async mounted(){
-    try {
+  async setup(){
 
-      const [
-        Map,
-        MapView,
-        esriConfig
-      ] = await loadModules<[
-        __esri.MapConstructor,
-        __esri.MapViewConstructor,
-        __esri.config
-      ]>([
-        "esri/Map",
-        "esri/views/MapView",
-        "esri/config"
-      ])
-    
-      // set api key (use .env.local file)
-      esriConfig.apiKey = process.env.VUE_APP_ARCGIS_ACCESS_TOKEN
+    onMounted(async ()=> {
 
-      // set map and view
-      const map = new Map({
-        basemap: 'topo'
-      })
-
-      const view = new MapView({
-        map,
-        container: 'viewDiv',
-        center: [-94, 45],
-        zoom: 12
-      })
+      try {
+  
+        const [
+          Map,
+          MapView,
+          esriConfig
+        ] = await loadModules<[
+          __esri.MapConstructor,
+          __esri.MapViewConstructor,
+          __esri.config
+        ]>([
+          "esri/Map",
+          "esri/views/MapView",
+          "esri/config"
+        ])
       
-      view.when(()=> {
-        console.log('view loaded')
-      })
+        // set api key (use .env.local file)
+        esriConfig.apiKey = process.env.VUE_APP_ARCGIS_ACCESS_TOKEN
+  
+        // set map and view
+        const map = new Map({
+          basemap: 'topo'
+        })
+  
+        const view = new MapView({
+          map,
+          container: 'viewDiv',
+          center: [-94, 45],
+          zoom: 12
+        })
+        
+        view.when(()=> {
+          console.log('view loaded')
+        })
+  
+      } catch(err){
+        console.warn(err)
+        console.error('failed load esri modules')
+      }
+    })
 
-    } catch(err){
-      console.warn(err)
-      console.error('failed load esri modules')
+    /**
+     * since map and view are actually created asynchronously, and using ref() will create
+     * problems due to conflicts with the esri.Accessor, it would make sense to store these
+     * properties in a vuex store if they need to be accessed outside of the setup function
+     */
+    return {
+      
     }
 
   },

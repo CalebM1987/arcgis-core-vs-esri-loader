@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "copy": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -28,6 +29,7 @@
     "@vue/eslint-config-typescript": "^5.0.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
+    "ncp": "^2.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "typescript": "~3.9.3",

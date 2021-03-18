@@ -9,10 +9,6 @@
 import { defineComponent, onMounted } from 'vue'
 import { loadModules } from 'esri-loader'
 
-interface MapViewData {
-  map?: __esri.Map;
-  view?: __esri.MapView;
-}
 
 export default defineComponent({
 

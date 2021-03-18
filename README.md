@@ -69,11 +69,11 @@ The demo app is a small [Vue.js](https://vuejs.org/) (version 3.x) written in Ty
 * size: `108 KB` (111,129 bytes)
 * number of files: 2
 
-![esri-loader-bundle-explorer](/images/esri-loader-bundle-explorer.png)
+![esri-loader-bundle-explorer](/docs/esri-loader-bundle-explorer.png)
 
 And the full build:
 
-![esri-loader-fullbuild-explorer](/images/esri-loader-fullbuild-explorer.png)
+![esri-loader-fullbuild-explorer](/docs/esri-loader-fullbuild-explorer.png)
 
 `@arcgis/core`:
 
@@ -81,13 +81,13 @@ And the full build:
 * number of files: 168
 
 
-![arcgis-core-bundle-explorer](/images/arcgis-core-bundle-explorer.png)
+![arcgis-core-bundle-explorer](/docs/arcgis-core-bundle-explorer.png)
 
 And the full build:
 
 > note: this build also includes `22.2 MB` of esri assets (3,448 files)
 
-![arcgis-core-fullbuild-explorer](/images/arcgis-core-fullbuild-explorer.png)
+![arcgis-core-fullbuild-explorer](/docs/arcgis-core-fullbuild-explorer.png)
 
 In this case, the `esri-loader` is the clear winner in my opinion.  Is it just me or does ~`10 MB` sound like a lot for only using **THREE** modules.  In fact, I'd argue that anything over `5 MB` is probably very inefficient or unnecessarily large.
 
@@ -97,7 +97,7 @@ In this case, the `esri-loader` is the clear winner in my opinion.  Is it just m
 
 Simply put, load time. See this quote from Strangeloop Networks referenced in [this article](https://betterprogramming.pub/reducing-js-bundle-size-58dc39c10f9c):
 
-![load time](/images/load-time-quote.PNG)
+![load time](/docs/load-time-quote.PNG)
 
 Also the amount of content being loaded may not matter for desktop applications, but it definitely makes a difference for mobile devices. Mobile devices most often do not have the same compute power and many users have data limitations on their cellular plans.
 

@@ -5,10 +5,11 @@ module.exports = {
   publicPath: "./", 
   outputDir: "./arcgis-core-build",
   productionSourceMap: false,
-  configureWebpack: config => {
+  configureWebpack: (config) => {
     if (process.env.NODE_ENV === 'production'){
       config.plugins.push(new LogFilesizeWebpackPlugin())
       config.plugins.push(new BundleAnalyzerPlugin())
     }
+
   }
 }

@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "postinstall": "ncp ./node_modules/@arcgis/core/assets ./public/assets",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
@@ -12,7 +13,7 @@
     "core-js": "^3.6.5",
     "esri-loader": "^3.0.0",
     "register-service-worker": "^1.7.1",
-    "vue": "^3.0.7"
+    "vue": "^3.0.0"
   },
   "devDependencies": {
     "@arcgis/webpack-plugin": "^4.18.0",
@@ -29,6 +30,7 @@
     "@vue/eslint-config-typescript": "^5.0.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
+    "ncp": "^2.0.0",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "typescript": "~3.9.3",

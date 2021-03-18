@@ -1,11 +1,13 @@
 # arcgis-core-vs-esri-loader
 
-This repository is meant to show different patterns for loading the [ArcGIS JavaScript API](https://developers.arcgis.com/javascript/latest/) and the pros and cons of each method.
+This repository is meant to show different methods of loading the [ArcGIS JavaScript API](https://developers.arcgis.com/javascript/latest/) and the pros and cons of each method.
 
-This compares using:
+The two methods are:
 
 * [esri-loader](https://github.com/Esri/esri-loader)
 * [@arcgis/core](https://www.npmjs.com/package/@arcgis/core)
+
+> note: The `@arcgis/core` method is showin in the [master branch](https://github.com/CalebM1987/arcgis-core-vs-esri-loader/tree/master), and `esri-loader` is shown in the [esri-loader branch](https://github.com/CalebM1987/arcgis-core-vs-esri-loader/tree/esri-loader).  The builds will go into separate directories based on which branch is currently in use.
 
 
 ## `esri-loader`
@@ -24,9 +26,9 @@ Cons:
 
 ## `@arcgis/core`
 
-With the release of the ArcGIS JavaScript API 4.18, I was very exicted to hear that we were finally getting [ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) so we could install and import the API with ease.  However, my excitement quickly turned to disappointment when I ran a build and all of a sudden there were 48 MB of JS files and 168 different files being loaded. 
+With the release of the ArcGIS JavaScript API 4.18, I was very exicted to hear that we were finally getting [ES modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) so we could install and import the API with ease.  However, my excitement quickly turned to disappointment when I ran a build and saw the bundle sizes. 
 
-> note: at this time (3/17/2021) this package is still in beta and hopefully will address the cons I have listed below, particularly related to lack of tree shaking.
+> note: at this time (3/17/2021, ArcGIS JS API 4.18) this package is still in beta and hopefully will address the lack of tree shaking.
 
 Pros: 
 
@@ -40,6 +42,17 @@ Cons:
 * slower load time
 
 ## The Demo Application
+
+To use the `esri-loader` version of the demo, make sure to switch the [branch](https://github.com/CalebM1987/arcgis-core-vs-esri-loader/tree/esri-loader):
+
+```
+git fetch -all
+
+git checkout esri-loader
+```
+
+the `@arcgis/core` version is contained in the [master branch](https://github.com/CalebM1987/arcgis-core-vs-esri-loader/tree/esri-loader).
+
 
 The demo app is a small [Vue.js](https://vuejs.org/) (version 3.x) written in TypeScript that only loads the following 3 modules:
 
@@ -78,6 +91,8 @@ And the full build:
 
 In this case, the `esri-loader` is the clear winner in my opinion.  Is it just me or does ~`10 MB` sound like a lot for only using **THREE** modules.  In fact, I'd argue that anything over `5 MB` is probably very inefficient or unnecessarily large.
 
+> note: There are ways to slim down the bundled files, but this requires using the [arcgis-webpack-plugin](https://github.com/Esri/arcgis-webpack-plugin) and this repo is setup to show both libraries out of the box to demonstrate the lack of tree shaking in the beta (4.18) release of `@arcgis/core`.
+
 #### Why does bundle size matter?
 
 Simply put, load time. See this quote from Strangeloop Networks referenced in [this article](https://betterprogramming.pub/reducing-js-bundle-size-58dc39c10f9c):
@@ -86,19 +101,20 @@ Simply put, load time. See this quote from Strangeloop Networks referenced in [t
 
 Also the amount of content being loaded may not matter for desktop applications, but it definitely makes a difference for mobile devices. Mobile devices most often do not have the same compute power and many users have data limitations on their cellular plans.
 
-### Lighthouse Results (mobile, slow network test)
+**bottom line, I believe this is an unacceptable bundle size for our tiny application where we are only using three modules.**
+
+### Lighthouse Results
 
 Both the `esri-loader` and `@arcgis/core` both scored very low in Lighthouse Perfomance.  I know loading the ArcGIS JavaScript API can always lead to poor performance due to the initial paint.  This can be improved by displaying something immediately while the map is loading such as splash screen, but there is definitely a noticable difference in speed of using the `esri-loader` vs `@arcgis/core` due to the upfront cost of loading all the extra bundles.
 
 
+| Build Type     | Desktop Speed Index | Desktop Performance Score  | Mobile Speed Index | Mobile Performance Score  |
+|----------------|:-------------------:|:--------------------------:|:------------------:|:-------------------------:|
+| `esri-loader`  |        3.8 s        |             21             |       18.6 s       |             6             |
+| `@arcgis/core` |        9.4 s        |             10             |       44.6 s       |             6             |
 
-> note: lighthouse mobile results are based on 3G speed.
 
-| Build Type     | Desktop Speed Index | Mobile Speed Index |
-|----------------|:-------------------:|:------------------:|
-| `esri-loader`  |                     |                    |
-| `@arcgis/core` |        13.4 s       |       43.2 s       |
-
+> note: it is important to point out I am not doing any sort of optimizations with either method and in a real app, I would probably use a splash screen to immediately present the end user with some content.
 
 ## Project setup
 ```

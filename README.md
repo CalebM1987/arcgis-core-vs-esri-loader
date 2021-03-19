@@ -115,13 +115,11 @@ full build:
 ![mapbox-gl-fullbuild-explorer](/docs/mapbox-fullbuild-explorer.png)
 
 
-
-
 #### Why does bundle size matter?
 
 Simply put, load time. See this quote from Strangeloop Networks referenced in [this article](https://betterprogramming.pub/reducing-js-bundle-size-58dc39c10f9c):
 
-![load time](/docs/load-time-quote.PNG)
+![load time](/docs/load-time-quote.png)
 
 Also the amount of content being loaded may not matter for desktop applications, but it definitely makes a difference for mobile devices. Mobile devices most often do not have the same compute power and many users have data limitations on their cellular plans.
 

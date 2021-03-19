@@ -1,48 +1,53 @@
 <template>
-  <div class="map-wrapper">
-    <div id="viewDiv" ref="viewDiv"></div>
-  </div>
+  <!-- <div class="map-wrapper">
+    <div id="map" ref="mapDiv"></div>
+  </div> -->
+  <mapbox-map :accessToken="accessToken" :mapStyle="mapStyle"/>
 </template>
 
 <script lang="ts">
-/// <reference types="@types/arcgis-js-api" />
-import { defineComponent, nextTick } from 'vue'
-import Map from '@arcgis/core/Map'
-import MapView from '@arcgis/core/views/MapView'
-import esriConfig from '@arcgis/core/config'
-import '@arcgis/core/assets/esri/themes/light/main.css'
+// import { Map } from '@types/mapbox-gl'
+import { defineComponent, ref } from 'vue'
+import { MapboxMap } from 'vue-mapbox-ts'
+// import { Map } from "mapbox-gl"
+// import { MglMap } from "vue-mapbox" // eslint-disable-line
 
 
 export default defineComponent({
+  components: { MapboxMap },
+  name: 'MapView',
+
   setup(){
     
     // set api key (use .env.local file)
-    esriConfig.apiKey = process.env.VUE_APP_ARCGIS_ACCESS_TOKEN
+    const accessToken = process.env.VUE_APP_MAPBOX_ACCESS_TOKEN
 
-    // set map and view
-    const map = new Map({
-      basemap: 'topo'
-    })
+    const mapStyle = ref('streets-v11')
 
-    const view = new MapView({
-      map,
-      container: 'viewDiv',
-      center: [-94, 45],
-      zoom: 12
-    })
+
+
+    // set map 
+
 
     return {
-      map,
-      view
+      accessToken,
+      mapStyle,
+      // map,
+      // map,
+      // view
     }
   },
 
   created(){
-    console.log('map and view: ', this.map, this.view)
-    nextTick(()=> this.view.container = this.$refs.viewDiv as HTMLDivElement)
-    this.view.when(()=> {
-      console.log('view loaded')
-    })
+    console.log('mapbox map created', this.$refs.mapDiv, document.getElementById('map'))
+    // const map: Map = new Map({
+    //   container: 'map', //this.$refs.mapDiv,
+    //   style: this.mapStyle,
+    //   center: [-94, 45],
+    //   zoom: 12
+    // })
+
+    // nextTick(()=> this.map.container = this.$refs.mapDiv)
     
   }
 
@@ -52,7 +57,9 @@ export default defineComponent({
 
 <style lang="scss">
 
-#viewDiv {
+@import url(https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css);
+
+#map {
   height: 100%;
   width: 100%;
 }

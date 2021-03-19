@@ -3,7 +3,7 @@ const LogFilesizeWebpackPlugin = require('@jsany/log-filesize-webpack-plugin')
 
 module.exports = {
   publicPath: "./", 
-  outputDir: "./arcgis-core-build",
+  outputDir: "./mapbox-gl-build",
   productionSourceMap: false,
   configureWebpack: (config) => {
     if (process.env.NODE_ENV === 'production'){

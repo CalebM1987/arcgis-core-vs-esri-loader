@@ -26,6 +26,7 @@ pnpm-debug.log*
 esri-loader-build/
 arcgis-core-build/
 arcgis-webpack-plugin-build/
+mapbox-gl-build/
 
 # ignore esri assets for @arcgis/core
 public/assets/esri/

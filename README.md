@@ -9,6 +9,8 @@ The two methods are:
 
 > note: The `@arcgis/core` method is showin in the [master branch](https://github.com/CalebM1987/arcgis-core-vs-esri-loader/tree/master), and `esri-loader` is shown in the [esri-loader branch](https://github.com/CalebM1987/arcgis-core-vs-esri-loader/tree/esri-loader).  The builds will go into separate directories based on which branch is currently in use.
 
+As another frame of reference, I am also including a [mapbox-gl branch](https://github.com/CalebM1987/arcgis-core-vs-esri-loader/tree/mapbox-gl) just for a size comparison of a built app that ONLY displays a map.  The ArcGIS JavaScript API is much larger and more feature rich than Mapbox, and therefore is expected to have a larger bundle size.
+
 
 ## `esri-loader`
 
@@ -66,6 +68,10 @@ The demo app is a small [Vue.js](https://vuejs.org/) (version 3.x) written in Ty
 
 `esri-loader`:
 
+> note: this bundle is **expected** to be smaller because the `esri-loader` loads the ArcGIS JS API via CDN calls and does not actually bundle any of it, just the means to load it.
+
+`js` folder: 
+
 * size: `108 KB` (111,129 bytes)
 * number of files: 2
 
@@ -76,6 +82,8 @@ And the full build:
 ![esri-loader-fullbuild-explorer](/docs/esri-loader-fullbuild-explorer.png)
 
 `@arcgis/core`:
+
+`js` folder:
 
 * size: `10.3 MB` (10,897,588 bytes)
 * number of files: 168
@@ -92,6 +100,22 @@ And the full build:
 In this case, the `esri-loader` is the clear winner in my opinion.  Is it just me or does ~`10 MB` sound like a lot for only using **THREE** modules.  In fact, I'd argue that anything over `5 MB` is probably very inefficient or unnecessarily large.
 
 > note: There are ways to slim down the bundled files, but this requires using the [arcgis-webpack-plugin](https://github.com/Esri/arcgis-webpack-plugin) and this repo is setup to show both libraries out of the box to demonstrate the lack of tree shaking in the beta (4.18) release of `@arcgis/core`.
+
+`mapbox-gl`
+
+> note: this is only displayed as a frame of reference to the size of another map library.
+
+`js` folder:
+
+* size: `965 KB` (988,693 bytes)
+* number of files: 2
+
+full build:
+
+![mapbox-gl-fullbuild-explorer](/docs/mapbox-fullbuild-explorer.png)
+
+
+
 
 #### Why does bundle size matter?
 
